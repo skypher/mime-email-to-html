@@ -3,7 +3,7 @@
 
 set -x
 
-SCRIPT_HOME=$(pwd)/./$(dirname "$0")
+SCRIPT_HOME=$(dirname $(readlink -f "$0"))
 OUTROOT="$SCRIPT_HOME/../out_html"
 OUTDIR="$OUTROOT/$(date -Iseconds)"
 RAWFILE="$OUTDIR/raw.eml"
