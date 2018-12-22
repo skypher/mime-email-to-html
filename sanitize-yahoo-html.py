@@ -7,22 +7,29 @@ def process_html(fname, encoding):
     with open(argv[1], encoding=encoding) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
 
-        # just get the relevant body
-        mlmsg_matches = soup.find_all('div', 'moz-forward-container')
-        #mlmsg_matches = soup.find_all(id='ygrp-text')
-        #assert(len(mlmsg_matches) == 1)
-        mlmsg = mlmsg_matches[0]
-
-        # remove spurious table
-        mlmsg.find_all('table', 'moz-email-headers-table')[0].extract()
-
         # keep existing CSS
         style_matches = soup.find_all('style')
         assert(len(style_matches) == 1)
-        style = style_matches[0]
+        original_style = style_matches[0]
+
+        # just get the relevant body
+        mlmsg_matches = soup.find_all('div', 'moz-forward-container')
+        #mlmsg_matches = soup.find_all(id='ygrp-text')
+        #if (len(mlmsg_matches) > 0): # some messages don't have it
+        mlmsg = mlmsg_matches[0]
+        # remove spurious table
+        mlmsg.find_all('table', 'moz-email-headers-table')[0].extract()
+        custom_header = '<div class="custom-header"><a href="/">Part of the Spiritus Angel Messages collection project.<br/>Back to index</a></div>'
+        body = '<body>%s%s</body>' % (custom_header, mlmsg)
+        #else:
+            #soup.select('body > div > b')[0].extract()
+            #body = soup.find('body').prettify()
+
 
         # build and write new doc
-        outdoc = '<html><head><meta charset="UTF-8"/><link type="text/css" rel="stylesheet" href="/style.css"/>%s</head><body>%s</body></html>' % (style, mlmsg)
+        meta = '<meta charset="UTF-8"/><link type="text/css" rel="stylesheet" href="/style.css"/>'
+        meta += original_style.prettify()
+        outdoc = '<html><head>%s</head>%s</html>' % (meta, body)
         
         with open(argv[2], 'w', encoding='utf-8') as outfp:
             outfp.write(outdoc)
