@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from bs4 import BeautifulSoup
 from sys import argv
+import cgi
 from os.path import splitext
 
 def process_html(fname, encoding):
@@ -17,8 +18,11 @@ def process_html(fname, encoding):
         #mlmsg_matches = soup.find_all(id='ygrp-text')
         #if (len(mlmsg_matches) > 0): # some messages don't have it
         mlmsg = mlmsg_matches[0]
-        # remove spurious table
-        mlmsg.find_all('table', 'moz-email-headers-table')[0].extract()
+        # remove spurious table if it exists
+        try:
+            mlmsg.find_all('table', 'moz-email-headers-table')[0].extract()
+        except:
+            pass
         custom_header = '<div class="custom-header"><a href="/">Part of the Spiritus Angel Messages collection project.<br/>Back to index</a></div>'
         body = '<body>%s%s</body>' % (custom_header, mlmsg)
         #else:
@@ -29,14 +33,15 @@ def process_html(fname, encoding):
         # build and write new doc
         meta = '<meta charset="UTF-8"/><link type="text/css" rel="stylesheet" href="/style.css"/>'
         meta += original_style.prettify()
-        outdoc = '<html><head>%s</head>%s</html>' % (meta, body)
+        title = '<title>%s</title>' % cgi.escape(argv[3])
+        outdoc = '<html><head>%s%s</head>%s</html>' % (title, meta, body)
         
         with open(argv[2], 'w', encoding='utf-8') as outfp:
             outfp.write(outdoc)
 
 
-# args: infile outfile
-assert(len(argv) == 3)
+# args: infile outfile title
+assert(len(argv) == 4)
 
 try:
     print('Trying to process as UTF-8...')
