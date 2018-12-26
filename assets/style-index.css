@@ -1,0 +1,118 @@
+html {
+    background:#c58eb6;
+    padding-bottom:25px;
+}
+
+body {
+    margin:auto;
+    padding-top:40px;
+    /*width:740px;*/
+    padding:0 60px;
+    background:#bb9dc5;
+    font-family:Arial;
+    color:#47134a;
+}
+
+h1 {
+    padding:20px;
+    background:#b17bad;
+}
+
+h1 img {
+    max-width:90%;
+}
+
+div.intro, h1 {
+    text-align:left;
+}
+
+div.intro {
+    font-size:4.5mm;
+}
+
+p.beloved {
+    font-size:1.3em;
+}
+
+p.greeting {
+    font-size:1.3em;
+    font-style:italic;
+}
+
+p.thespirits {
+    font-size: 1.3em;
+    margin: 30px auto;
+    border: 3px solid #d5bfe8;
+    padding: 15px;
+    width: 60%;
+    border-left: none;
+    border-right: none;
+    font-style: italic;
+    background: #f9bbf4;
+}
+
+p.thespirits img {
+    max-width:90%;
+    margin:15px;
+}
+
+p.thespirits span.number {
+    /*font-size:2em;*/
+}
+
+p.thespirits span.title {
+    /*font-size:1.2em;*/
+}
+
+p.thespirits span.subtitle {
+    /*font-size:1.3em;*/
+}
+
+div.closing {
+/*
+    display:block;
+    margin-left:auto;
+    font-size:1.2em;
+    text-align:left;
+    border:1px solid red;
+    */
+}
+
+p.closing, p.signature {
+}
+
+.row {
+  margin:auto;
+  max-width:1300px;
+}
+
+.col-md-6 {
+  max-width:600px;
+}
+
+ul {
+  list-style:none;
+  font-size:1.3em;
+}
+
+a.pdffile {
+  display:none;
+  font-size:0.8em;
+}
+
+li {
+  margin:15px;
+  background:#ebd2f5;
+  padding:10px;
+}
+
+li img {
+  display:inline-block;
+  float:left;
+  max-width:50px;
+  margin-right:10px;
+}
+
+div.closing {
+    font-size:0.8em;
+}

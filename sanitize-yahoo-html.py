@@ -31,7 +31,7 @@ def process_html(fname, encoding):
 
 
         # build and write new doc
-        meta = '<meta charset="UTF-8"/><link type="text/css" rel="stylesheet" href="/style.css"/>'
+        meta = '<meta charset="UTF-8"/><link type="text/css" rel="stylesheet" href="../assets/style.css"/>'
         meta += original_style.prettify()
         title = '<title>%s</title>' % cgi.escape(argv[3])
         outdoc = '<html><head>%s%s</head>%s</html>' % (title, meta, body)

@@ -1,1 +1,5 @@
-prettier index: https://gist.github.com/elFua/c6b2dd676524c5225cc31ad06efa2492
+sanitize names of ACCOUNT.* JPGs (add ext, adjust src link)
+favicon/logo
+fix eml filename (missing [)
+html check
+give some love to individual document header (link to pdf, add header with backlink)
