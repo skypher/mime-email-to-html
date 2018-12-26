@@ -23,7 +23,7 @@ def process_html(fname, encoding):
             mlmsg.find_all('table', 'moz-email-headers-table')[0].extract()
         except:
             pass
-        custom_header = '<div class="custom-header"><a href="/">Part of the Spiritus Angel Messages collection project.<br/>Back to index</a></div>'
+        custom_header = '<div class="custom-header"><h1><a href="/">Hermetic Angel Messages</a></h1></div>'
         body = '<body>%s%s</body>' % (custom_header, mlmsg)
         #else:
             #soup.select('body > div > b')[0].extract()

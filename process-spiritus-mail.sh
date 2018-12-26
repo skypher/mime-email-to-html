@@ -3,7 +3,7 @@
 # check tool dependencies
 set -e
 which tree zip ripmime python3 tr Xvfb wkhtmltopdf
-# todo check for bs4 python module
+python3 -c 'import bs4'
 set +e
 
 set -x
@@ -35,7 +35,7 @@ for RAWFILE in $RAWFILES; do
 
     TITLE=$(grep -E \^Subject: "$RAWFILE" | cut -d\[ -f3 | sed -e 's/[[:space:]]*$//')
 
-    RAWFILENAME="$TITLE.eml"
+    RAWFILENAME="[$TITLE.eml"
     HTMLFILENAME=$(echo "$TITLE.html" | tr -s ' ,[]{}' '-')
     cp "$RAWFILE" "$RAWFILENAME"
 

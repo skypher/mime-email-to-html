@@ -2,15 +2,30 @@ html {
     background:#c58eb6;
 }
 
-span {
-    font-family:inherit !important;
-}
-
 body {
     margin:auto;
     width:740px;
-    padding:0 60px;
+    padding:5px 60px;
     background:#bb9dc5;
+}
+
+h1 {
+    padding:10px;
+    background:#b17bad;
+    font-size:36px;
+    margin:10px;
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color:#47134a;
+    text-align:center;
+}
+
+h1 a:link, a:hover, a:visited {
+    text-decoration:none;
+    color:inherit;
+}
+
+span {
+    font-family:inherit !important;
 }
 
 img {

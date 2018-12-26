@@ -14,8 +14,10 @@ LISTFILE="htmlfiles.txt"
 
 cat <<EOF > "$OUTFILE"
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8"/>
+
     <!-- *** Bootstrap *** -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -34,7 +36,6 @@ cat <<EOF > "$OUTFILE"
  <!-- *** site-local *** -->
  <title>Hermetic Angel Messages</title>
  <link rel="stylesheet" href="style-index.css" type="text/css" />
-
 </head> 
 <body>
 EOF
@@ -51,12 +52,6 @@ cat <<EOF >> "$OUTFILE"
         <div class="intro">
             <p class="beloved">Beloved,</p>
             <p>welcome to the communications of the 360 Hermetic Spirits of the Earth Zone and the 28 Hermetic Spirits of the Lunar Cycle.</p>
-            <!--
-            <p>welcome to the archived communications of the</p>
-            <p class="thespirits"><img src="earthzone.jpg"/><span class="number">360</span> <span class="title">Hermetic Spirits</span> <span class="subtitle">of the Earth Zone</span></p>
-            <p>and the</p>
-            <p class="thespirits"><img src="moon.jpg"/><span class="number">28</span> <span class="title">Hermetic Spirits</span> <span class="subtitle">of the Lunar Cycle</span></p>
-            -->
             <p>We have been described by Franz Bardon, teacher of High Magic,
             and Abramelin, Western medieval sage.</p>
             <!--<p class="greeting">As above, so below,<br/>as within, so without.<br/>We are all One.</p>-->
@@ -71,7 +66,7 @@ cat <<EOF >> "$OUTFILE"
             It also provides PDF versions of the messages and a ZIP file for easy download of all messages
             presented.</p>
 
-            <div class="conduit"
+            <div class="conduit">
                 <p>I am Blue Magician, and these spirits are part of you and me. Like Cynthia Schlosser,
                 I serve as a conduit for them. This site is dedicated so all my sincere companions in our
                 journey to Self.</p>
@@ -104,11 +99,13 @@ while read FILENAME; do
   if [ -z "$IS_MOON" ]; then
       SIGN=$(echo $TITLE | cut -d\  -f2 | cut -d: -f1 | tr '[:upper:]' '[:lower:]')
       IMG=assets/images/signs/$SIGN.gif
+      ALT="Earth Zone Angel: $SIGN"
   else
       IMG=assets/images/moonphases/$(echo $TITLE | sed 's/\([0-9]\).*/\1/').gif
+      ALT="Moon Angel"
   fi
   set -e
-  echo "<li><img src='$IMG'/><a class='htmlfile' href='$FILENAME_E'>$TITLE_E:<br/>$SUBTITLE_E</a> <a class='pdffile' href='$PDFFILENAME_E'>[PDF]</a></li>" >> "$OUTFILE"
+  echo "<li><img src='$IMG' alt='$ALT'/><a class='htmlfile' href='$FILENAME_E'>$TITLE_E:<br/>$SUBTITLE_E</a> <a class='pdffile' href='$PDFFILENAME_E'>[PDF]</a></li>" >> "$OUTFILE"
 done < "$LISTFILE"
 echo '</ul>' >> "$OUTFILE"
   
