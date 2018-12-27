@@ -1,8 +1,14 @@
 link to pdf version
 
-add cronjob
 split up script / incremental mode
 
 sanitize names of ACCOUNT.* JPGs (add ext, adjust src link)
-favicon/logo
 
+adjust zip file to include top-level dir
+
+fix favicon transparency
+
+mention github in footer for bugs/code, also link to bluemagician.vc
+
+make blog post / post on SA
+link to angel times calculator

@@ -56,3 +56,4 @@ cd "$OUTROOT"
 zip archive.zip -x\*.eml -ruo 20* index.html style*.css assets
 "$SCRIPT_HOME"/mkindex.sh "$OUTROOT"
 cp -av "$SCRIPT_HOME"/assets/ "$OUTROOT"
+cp -av "$SCRIPT_HOME"/assets/favicon/* "$OUTROOT"
