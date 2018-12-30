@@ -54,7 +54,7 @@ cat <<EOF > "$OUTFILE"
 
     <!-- *** site-local *** -->
     <title>Hermetic Angel Messages</title>
-    <link rel="stylesheet" href="style-index.css" type="text/css" />
+    <link rel="stylesheet" href="assets/style-index.css" type="text/css" />
 </head> 
 <body>
 EOF
@@ -106,7 +106,7 @@ EOF
 echo '<ul>' >> "$OUTFILE"
 while read FILENAME; do
   PDFFILENAME="$FILENAME".pdf
-  COMPOUND_TITLE=$(grep -i '<title>' "$FILENAME" | sed 's!.*<title>\(.*\)</title>.*!\1!' | sed 's/.*ANGEL[] :}]\+//i' | sed 's/.*\([0-9]\+.*\)/\1/')
+  COMPOUND_TITLE=$(grep -i '<title>' "$FILENAME" | sed 's!.*<title>\(.*\)</title>.*!\1!' | sed 's/.*ANGEL[] :}]\+//i' | sed 's/[^0-9]*\([0-9]\+.*\)/\1/')
   TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/')
   SUBTITLE=$(echo $COMPOUND_TITLE | cut -d, -f2-)
   TITLE_E=$(echo $TITLE | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')

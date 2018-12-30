@@ -30,10 +30,13 @@ for RAWFILE in $RAWFILES; do
 
     RAWFILE_CTIME=$(stat -c\%Y "$RAWFILE")
     OUTDIR="$OUTROOT/$(date -Iseconds -d\@"$RAWFILE_CTIME")"
+    #if [ -d "$OUTROOT" ]; then continue; fi # already processed, skip
     mkdir -p "$OUTDIR"
     pushd "$OUTDIR"
 
-    TITLE=$(grep -E \^Subject: "$RAWFILE" | cut -d\[ -f3 | sed -e 's/[[:space:]]*$//')
+    # sed multi-line expression are a PITA (and email headers don't give a fuck about that :S )
+    SANITIZED_MAIL_HEADERS=$(cat "$RAWFILE" | python -c 'import sys; import re; sys.stdout.write(re.sub(r"\n(\s+)", " ", sys.stdin.read()))' | head -n500)
+    TITLE=$(echo "$SANITIZED_MAIL_HEADERS" | grep -E \^Subject: | cut -d\[ -f3 | head -n1 | sed -e 's/[[:space:]]*$//')
 
     RAWFILENAME="[$TITLE.eml"
     HTMLFILENAME=$(echo "$TITLE.html" | tr -s ' ,[]{}' '-')

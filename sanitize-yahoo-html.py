@@ -23,7 +23,7 @@ def process_html(fname, encoding):
             mlmsg.find_all('table', 'moz-email-headers-table')[0].extract()
         except:
             pass
-        pdflink = argv[2].replace('html', 'pdf')
+        pdflink = argv[2] + '.pdf'
         custom_header = '<div class="custom-header"><h1><a href="/">Hermetic Angel Messages</a></h1><p class="subtitle"><a href="%s">PDF version</a></p></div>' % cgi.escape(pdflink)
         body = '<body>%s%s</body>' % (custom_header, mlmsg)
         #else:

@@ -9,7 +9,14 @@ body {
     background:#bb9dc5;
 }
 
-h1 {
+.custom-header a:link,
+.custom-header a:visited,
+.custom-header a:hover,
+.custom-header a:active {
+    color:#4f1869;
+}
+
+.custom-header h1 {
     padding:10px;
     background:#b17bad;
     font-size:36px;
@@ -19,9 +26,13 @@ h1 {
     text-align:center;
 }
 
-h1 a:link, a:hover, a:visited {
+.custom-header h1 a:link, a:hover, a:visited {
     text-decoration:none;
     color:inherit;
+}
+
+.custom-header .subtitle {
+    text-align:center;
 }
 
 span {
