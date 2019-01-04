@@ -2,7 +2,11 @@
 
 set -x
 
-# TODO check for ripmime and bs4
+# check tool dependencies
+set -e
+which ripmime
+python3 -c 'import bs4'
+set +e
 
 if [ -z "$1" -o -z "$2" ]; then
   echo Usage: $0 mimefile outdir
@@ -14,7 +18,7 @@ OUTDIR="$2"
 
 mkdir -p "$OUTDIR"
 
-HTMLFILE=$(ripmime -i "$MIMEFILE" -v --name-by-type | grep html | cut -d\= -f2)
+HTMLFILE=$(ripmime --overwrite -i "$MIMEFILE" -v --name-by-type | grep html | cut -d\= -f2)
 HTMLFILE_NEWNAME=$(echo "$MIMEFILE" | sed -r 's/\s+\[[0-9]+ Attachments\]//g' | sed 's/.eml//g')
 
 CIDS=$(/bin/grep -i Content-ID: "$MIMEFILE" | cut -d\< -f2 | cut -d\> -f1)

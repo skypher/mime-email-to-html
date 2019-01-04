@@ -103,16 +103,20 @@ cat <<EOF >> "$OUTFILE"
     <div class="col-md-6">
 EOF
 
+function html_escape() {
+  sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g'
+}
+
 echo '<ul>' >> "$OUTFILE"
 while read FILENAME; do
   PDFFILENAME="$FILENAME".pdf
   COMPOUND_TITLE=$(grep -i '<title>' "$FILENAME" | sed 's!.*<title>\(.*\)</title>.*!\1!' | sed 's/.*ANGEL[] :}]\+//i' | sed 's/[^0-9]*\([0-9]\+.*\)/\1/')
-  TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/')
+  TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/' | sed 's/thDay/th Day/')
   SUBTITLE=$(echo $COMPOUND_TITLE | cut -d, -f2-)
-  TITLE_E=$(echo $TITLE | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
-  SUBTITLE_E=$(echo $SUBTITLE | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
-  FILENAME_E=$(echo "$FILENAME" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
-  PDFFILENAME_E=$(echo "$PDFFILENAME" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
+  TITLE_E=$(echo $TITLE | html_escape)
+  SUBTITLE_E=$(echo $SUBTITLE | html_escape)
+  FILENAME_E=$(echo "$FILENAME" | html_escape)
+  PDFFILENAME_E=$(echo "$PDFFILENAME" | html_escape)
   set +e
   IS_MOON=$(echo $TITLE | grep -iE lunar\|moon)
   if [ -z "$IS_MOON" ]; then
@@ -120,7 +124,7 @@ while read FILENAME; do
       IMG=assets/images/signs/$SIGN.gif
       ALT="Earth Zone Angel: $SIGN"
   else
-      IMG=assets/images/moonphases/$(echo $TITLE | sed 's/\([0-9]\).*/\1/').gif
+      IMG=assets/images/moonphases/$(echo $TITLE | sed 's/\([0-9]\+\).*/\1/').gif
       ALT="Moon Angel"
   fi
   set -e

@@ -1,5 +1,4 @@
 outdir based on mail message Date header
-fix 18th day of lunar cycle message
 
 split up script / incremental mode
 
@@ -9,8 +8,13 @@ adjust zip file to include top-level dir
 
 fix favicon transparency
 
+add newsletter
+
 make blog post / post on SA
 link to angel times calculator
+
+revise design of index page
+(make it look more like the individual pages, convert intro text into q&a style)
 
 sun/moon stats
 q&a

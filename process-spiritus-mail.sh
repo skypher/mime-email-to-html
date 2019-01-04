@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # check tool dependencies
+# ripmime and python3 are needed in the other scripts; check them
+# here as well to fail early.
 set -e
-which tree zip ripmime python3 tr Xvfb wkhtmltopdf
+which tree zip python2 python3 tr Xvfb wkhtmltopdf ripmime
 python3 -c 'import bs4'
 set +e
 
@@ -27,7 +29,6 @@ trap cleanup EXIT
 
 IFS=$'\n'
 for RAWFILE in $RAWFILES; do
-
     RAWFILE_CTIME=$(stat -c\%Y "$RAWFILE")
     OUTDIR="$OUTROOT/$(date -Iseconds -d\@"$RAWFILE_CTIME")"
     #if [ -d "$OUTROOT" ]; then continue; fi # already processed, skip
@@ -35,7 +36,8 @@ for RAWFILE in $RAWFILES; do
     pushd "$OUTDIR"
 
     # sed multi-line expression are a PITA (and email headers don't give a fuck about that :S )
-    SANITIZED_MAIL_HEADERS=$(cat "$RAWFILE" | python -c 'import sys; import re; sys.stdout.write(re.sub(r"\n(\s+)", " ", sys.stdin.read()))' | head -n500)
+    # using python2 because python3 exhibits decoding issues. to be fixed as necessary later.
+    SANITIZED_MAIL_HEADERS=$(cat "$RAWFILE" | python2 -c 'import sys; import re; sys.stdout.write(re.sub(r"\n(\s+)", " ", sys.stdin.read()))' | head -n100)
     TITLE=$(echo "$SANITIZED_MAIL_HEADERS" | grep -E \^Subject: | cut -d\[ -f3 | head -n1 | sed -e 's/[[:space:]]*$//')
 
     RAWFILENAME="[$TITLE.eml"
