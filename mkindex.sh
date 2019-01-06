@@ -112,7 +112,7 @@ while read FILENAME; do
   PDFFILENAME="$FILENAME".pdf
   COMPOUND_TITLE=$(grep -i '<title>' "$FILENAME" | sed 's!.*<title>\(.*\)</title>.*!\1!' | sed 's/.*ANGEL[] :}]\+//i' | sed 's/[^0-9]*\([0-9]\+.*\)/\1/')
   TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/' | sed 's/thDay/th Day/')
-  SUBTITLE=$(echo $COMPOUND_TITLE | cut -d, -f2-)
+  SUBTITLE=$(echo $COMPOUND_TITLE | cut -d, -f2- | sed 's/,//g')
   TITLE_E=$(echo $TITLE | html_escape)
   SUBTITLE_E=$(echo $SUBTITLE | html_escape)
   FILENAME_E=$(echo "$FILENAME" | html_escape)

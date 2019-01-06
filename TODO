@@ -1,28 +1,37 @@
-outdir based on mail message Date header
+ESSENTIALS:
+    q&a
+    revise design of index page
+    (make it look more like the individual pages, convert intro text into q&a style)
 
-split up script / incremental mode
+    sun/moon stats: signs and degrees, moon phase (cerridwen?)
 
-sanitize names of ACCOUNT.* JPGs (add ext, adjust src link)
+    make blog post / post on SA
+    link to angel times calculator
 
-adjust zip file to include top-level dir
+    q&a
+        mention github for bugs/code, also link to bluemagician.vc and yahoo groups
+        bardon's books
+        abramelin
+        ciphers, fixed star names
+        when to contact
+        how do I work with these
+        are these things for real?
 
-fix favicon transparency
+FEATURES:
+    add newsletter
 
-add newsletter
 
-make blog post / post on SA
-link to angel times calculator
+CONTENT:
+    import old messages from Thunderbird (https://stackoverflow.com/questions/11281893/how-to-split-mailbox-into-single-file-per-message)
+    pagination/archival
 
-revise design of index page
-(make it look more like the individual pages, convert intro text into q&a style)
+MINOR FIXES:
+    outdir based on mail message Date header
 
-sun/moon stats
-q&a
-    mention github for bugs/code, also link to bluemagician.vc and yahoo groups
-    bardon's books
-    abramelin
-    ciphers, fixed star names
-    when to contact
-    how do I work with these
-    are these things for real?
+    sanitize names of ACCOUNT.* JPGs (add ext, adjust src link)
+
+    adjust zip file to include top-level dir
+
+    fix favicon transparency
+
 

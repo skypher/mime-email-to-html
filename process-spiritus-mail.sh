@@ -31,7 +31,7 @@ IFS=$'\n'
 for RAWFILE in $RAWFILES; do
     RAWFILE_CTIME=$(stat -c\%Y "$RAWFILE")
     OUTDIR="$OUTROOT/$(date -Iseconds -d\@"$RAWFILE_CTIME")"
-    #if [ -d "$OUTROOT" ]; then continue; fi # already processed, skip
+    if [ -d "$OUTROOT" ]; then continue; fi # already processed, skip
     mkdir -p "$OUTDIR"
     pushd "$OUTDIR"
 

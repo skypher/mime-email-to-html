@@ -4,5 +4,6 @@ Sample procmail rule
 ```
 :0:$HOME/spiritus/raw/spiritus-procmail.lock
 * ^Subject:.*Spiritus.*
+* ! ^Subject:.*Cron .*
 $HOME/spiritus/raw/
 ```
