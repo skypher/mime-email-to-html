@@ -119,6 +119,8 @@ while read FILENAME; do
   PDFFILENAME_E=$(echo "$PDFFILENAME" | html_escape)
   set +e
   IS_MOON=$(echo $TITLE | grep -iE lunar\|moon)
+  IS_SPECIAL=$(echo $TITLE | grep -iE special.\*message)
+  if [ ! -z "$IS_SPECIAL" ]; then continue; fi
   if [ -z "$IS_MOON" ]; then
       SIGN=$(echo $TITLE | cut -d\  -f2 | cut -d: -f1 | tr '[:upper:]' '[:lower:]')
       IMG=assets/images/signs/$SIGN.gif
