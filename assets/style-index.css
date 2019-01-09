@@ -91,6 +91,7 @@ p.closing, p.signature {
 }
 
 ul {
+  padding:0;
   list-style:none;
   font-size:1.3em;
 }
@@ -115,4 +116,16 @@ li img {
 
 div.closing {
     font-size:0.8em;
+}
+
+p.links {
+    text-align:center;
+}
+
+h2 {
+    text-align:center;
+}
+
+dt {
+    margin-top:10px;
 }

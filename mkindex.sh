@@ -7,6 +7,8 @@ which find sed grep stat # dep sanity check
 
 test ! -z "$1"
 
+cp assets/qa.html "$1"/assets
+
 cd "$1"
 
 OUTFILE="index.html"
@@ -63,44 +65,17 @@ find . -type f -iname \*angel\*.html | sort -r > "$LISTFILE"
 
 cat <<EOF >> "$OUTFILE"
 <div class="row">
-    <h1>
-    Hermetic Angel Messages
-    <!--<img src="title.jpg"/>-->
-    </h1>
-    <div class="col-md-6">
-        <div class="intro">
-            <p class="beloved">Beloved,</p>
-            <p>welcome to the communications of the 360 Hermetic Spirits of the Earth Zone and the 28 Hermetic Spirits of the Lunar Cycle.</p>
-            <p>We have been described by Franz Bardon, teacher of High Magic,
-            and Abramelin, Western medieval sage.</p>
-            <!--<p class="greeting">As above, so below,<br/>as within, so without.<br/>We are all One.</p>-->
-            <p>As above, so below, as within, so without. We are all One.</p>
-            <p>Starting years ago, we have communicated important messages through our messenger Cynthia Rose Schlosser,
-            and she reposts these messages on a daily basis through Yahoo! Groups, as befits the current
-            position of the Sun in the Western Tropical Zodiac, and the Moon's passage through its
-            28 day cycle.</p>
-            <p>This website collects these messages as they come in and makes them available to a wider
-            audience, a vital step in these times where the Alpha and the Omega are destined to merge on Earth.
-            More specifically, it makes the messages and their contents discoverable by search engines.
-            It also provides PDF versions of the messages and a ZIP file for easy download of all messages
-            presented.</p>
-
-            <div class="conduit">
-                <p>I am Blue Magician, and these spirits are part of you and me. Like Cynthia Schlosser,
-                I serve as a conduit for them. This site is dedicated so all my sincere companions in our
-                journey to Self.</p>
-                <p>If you find this site useful, please send an email message to thesilverstarlight@fastmail.com
-                to let me know. All questions and comments are welcome, even if it is just to say "Hello".</p>
-
-                <div class="closing">
-                    <p class="closing">In humility, service and unconditional love,</p>
-                    <p class="signature">Blue Magician<br/>British Columbia, December 2018</p>
-                </div>
-            </div>
-            <p><a href="archive.zip">Full Message Archive (ZIP, $[$(stat -c'%s' archive.zip)/(1024*1024)] MB)</a></p>
-        </div>
-    </div>
-    <div class="col-md-6">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <h1>
+        Hermetic Angel Messages
+        <!--<img src="title.jpg"/>-->
+        </h1>
+        <p class="links">
+          <a href="archive.zip">Full Message Archive (ZIP, $[$(stat -c'%s' archive.zip)/(1024*1024)] MB)</a>
+          <br/>
+          <a href="#answers">Questions & Answers</a>
+        </p>
 EOF
 
 function html_escape() {
@@ -111,8 +86,8 @@ echo '<ul>' >> "$OUTFILE"
 while read FILENAME; do
   PDFFILENAME="$FILENAME".pdf
   COMPOUND_TITLE=$(grep -i '<title>' "$FILENAME" | sed 's!.*<title>\(.*\)</title>.*!\1!' | sed 's/.*ANGEL[] :}]\+//i' | sed 's/[^0-9]*\([0-9]\+.*\)/\1/')
-  TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/' | sed 's/thDay/th Day/')
-  SUBTITLE=$(echo $COMPOUND_TITLE | cut -d, -f2- | sed 's/,//g')
+  TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/' | sed 's/thDay/th Day/' | sed 's/ Happiness//')
+  SUBTITLE=$(echo $COMPOUND_TITLE | cut -d, -f2- | sed 's/,//g' | sed 's/3rd day of lunar cycle //i')
   TITLE_E=$(echo $TITLE | html_escape)
   SUBTITLE_E=$(echo $SUBTITLE | html_escape)
   FILENAME_E=$(echo "$FILENAME" | html_escape)
@@ -133,7 +108,14 @@ while read FILENAME; do
   echo "<li><img src='$IMG' alt='$ALT'/><a class='htmlfile' href='$FILENAME_E'>$TITLE_E:<br/>$SUBTITLE_E</a> <a class='pdffile' href='$PDFFILENAME_E'>[PDF]</a></li>" >> "$OUTFILE"
 done < "$LISTFILE"
 echo '</ul>' >> "$OUTFILE"
+
+echo '<h2 id="answers">Questions and Answers</h2></a>' >> "$OUTFILE"
+
+cat assets/qa.html >> "$OUTFILE"
   
-echo '</div></div></body> </html>' >> "$OUTFILE"
+echo '</div>' >> "$OUTFILE" # col
+echo '<div class="col-lg-3"></div>' >> "$OUTFILE"
+echo '</div>' >> "$OUTFILE" # row
+echo '</body> </html>' >> "$OUTFILE"
 
 rm -f "$LISTFILE"
