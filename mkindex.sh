@@ -84,7 +84,7 @@ echo '<ul>' >> "$OUTFILE"
 while read FILENAME; do
   PDFFILENAME="$FILENAME".pdf
   COMPOUND_TITLE=$(grep -i '<title>' "$FILENAME" | sed 's!.*<title>\(.*\)</title>.*!\1!' | sed 's/.*ANGEL[] :}]\+//i' | sed 's/[^0-9]*\([0-9]\+.*\)/\1/')
-  TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/5th day/5th day of lunar cycle/i' | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/' | sed 's/thDay/th Day/' | sed 's/ Happiness//') # deal with inconsistencies
+  TITLE=$(echo $COMPOUND_TITLE | cut -d, -f1 | sed 's/5th day/5th day of lunar cycle/i' | sed 's/day/Day/' | sed 's/moon/Lunar/' | sed 's/lunar/Lunar/' | sed 's/thDay/th Day/' | sed 's/ Happiness//' | sed 's/ Degrees//') # deal with various inconsistencies
   SUBTITLE=$(echo $COMPOUND_TITLE | cut -d, -f2- | sed 's/,//g' | sed 's/3rd day of lunar cycle //i')
   TITLE_E=$(echo $TITLE | html_escape)
   SUBTITLE_E=$(echo $SUBTITLE | html_escape)
